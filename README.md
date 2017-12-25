@@ -1,8 +1,10 @@
 # Matrix
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/matrix`. To experiment with that code, run `bin/console` for an interactive prompt.
+An implementation of `Matrix` and `Vector` classes.
 
-TODO: Delete this and the text above, and describe your gem
+The `Matrix` class represents a mathematical matrix. It provides methods for creating matrices, operating on them arithmetically and algebraically, and determining their mathematical properties (trace, rank, inverse, determinant).
+
+The `Vector` class represents a mathematical vector, which is useful in its own right, and also constitutes a row or column of a `Matrix`.
 
 ## Installation
 
