@@ -3,8 +3,8 @@
 Gem::Specification.new do |spec|
   spec.name          = "matrix"
   spec.version       = "0.1.0"
-  spec.authors       = ["SHIBATA Hiroshi"]
-  spec.email         = ["hsbt@ruby-lang.org"]
+  spec.authors       = ["Marc-Andre Lafortune"]
+  spec.email         = ["ruby-core@marc-andre.ca"]
 
   spec.summary       = %q{An implementation of Matrix and Vector classes.}
   spec.description   = %q{An implementation of Matrix and Vector classes.}
