@@ -2,13 +2,15 @@
 
 An implementation of `Matrix` and `Vector` classes.
 
-The `Matrix` class represents a mathematical matrix. It provides methods for creating matrices, operating on them arithmetically and algebraically, and determining their mathematical properties (trace, rank, inverse, determinant).
+The `Matrix` class represents a mathematical matrix. It provides methods for creating matrices, operating on them arithmetically and algebraically, and determining their mathematical properties (trace, rank, inverse, determinant, eigensystem, etc.).
 
 The `Vector` class represents a mathematical vector, which is useful in its own right, and also constitutes a row or column of a `Matrix`.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+The `matrix` library comes pre-installed with Ruby. Unless you need recent features, you can simply `require 'matrix'` directly, no need to install it.
+
+If you need features that are more recent than the version of Ruby you want to support (check the [CHANGELOG](CHANGELOG.md)), you must use the gem. To do this, add this line to your application's Gemfile or gem's gemspec:
 
 ```ruby
 gem 'matrix'
@@ -18,13 +20,15 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install matrix
+To make sure the gem takes over the builtin library, be to call `bundle exec ...` (or to call `gem 'matrix' explicitly).
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'matrix'
+m = Matrix[[1, 2], [3, 4]]
+m.determinant # => -2
+```
 
 ## Development
 
