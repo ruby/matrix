@@ -295,11 +295,25 @@ class Matrix
     self.class.send(:new, rows, column_count) # bypass privacy of Matrix.new
   end
 
+  ## :call-seq:
+  #   matrix[range, range] -> matrix
+  #   matrix[range, integer] -> vector
+  #   matrix[integer, range] -> vector
+  #   matrix[integer, integer] -> element
   #
-  # Returns element (+i+,+j+) of the matrix.  That is: row +i+, column +j+.
-  #
+  # Returns element or elements of the matrix.
   def [](i, j)
-    @rows.fetch(i){return nil}[j]
+    rows = check_range(i, :row) or row = check_int(i, :row)
+    columns = check_range(j, :column) or column = check_int(j, :column)
+    if rows && columns
+      @rows[rows].map{ |row| row[columns] }
+    elsif rows
+      @rows[rows].map{ |row| row[column] }
+    elsif columns
+      self.row(row)[columns]
+    else
+      self.row(row)[column]
+    end
   end
   alias element []
   alias component []

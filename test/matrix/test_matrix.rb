@@ -634,6 +634,16 @@ class TestMatrix < Test::Unit::TestCase
     assert_equal Matrix.empty(0,3), Matrix.combine(Matrix.empty(0,3), Matrix.empty(0,3)) { raise }
   end
 
+  def test_get_element
+    m = Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    assert_equal(m[0..1, 1..2], [[2, 3], [5, 6]])
+    assert_equal(m[0..1, 0..], [[1, 2, 3], [4, 5, 6]])
+    assert_equal(m[0..1, 1], [2, 5])
+    assert_equal(m[2, 1..2], [8, 9])
+    assert_equal(m[2, 1], 8)
+    assert_raise(IndexError) { m[1.., 7] }
+  end
+
   def test_set_element
     src = Matrix[
       [1, 2, 3, 4],
