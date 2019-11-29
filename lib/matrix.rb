@@ -28,14 +28,14 @@ module ExceptionForMatrix # :nodoc:
   end
 
   class ErrOperationNotDefined < StandardError
-    def initialize(op, sc, oc)
-      super("Operation(#{op}) can\\'t be defined: #{sc} op #{oc}")
+    def initialize(vals)
+      super("Operation(#{vals[0]}) can\\'t be defined: #{vals[1]} op #{vals[2]}")
     end
   end
 
   class ErrOperationNotImplemented < StandardError
-    def initialize(op, sc, oc)
-      super("Sorry, Operation(#{op}) not implemented: #{sc} op #{oc}")
+    def initialize(vals)
+      super("Sorry, Operation(#{vals[0]}) not implemented: #{vals[1]} op #{vals[2]}")
     end
   end
 end
@@ -1078,7 +1078,7 @@ class Matrix
   def +(m)
     case m
     when Numeric
-      raise ErrOperationNotDefined, "+", self.class, m.class
+      raise ErrOperationNotDefined, ["+", self.class, m.class]
     when Vector
       m = self.class.column_vector(m)
     when Matrix
@@ -1105,7 +1105,7 @@ class Matrix
   def -(m)
     case m
     when Numeric
-      raise ErrOperationNotDefined, "-", self.class, m.class
+      raise ErrOperationNotDefined, ["-", self.class, m.class]
     when Vector
       m = self.class.column_vector(m)
     when Matrix
@@ -1238,7 +1238,7 @@ class Matrix
       v, d, v_inv = eigensystem
       v * self.class.diagonal(*d.each(:diagonal).map{|e| e ** other}) * v_inv
     else
-      raise ErrOperationNotDefined, "**", self.class, other.class
+      raise ErrOperationNotDefined, ["**", self.class, other.class]
     end
   end
 
@@ -2139,7 +2139,7 @@ class Vector
     when Matrix
       Matrix.column_vector(self) * x
     when Vector
-      raise ErrOperationNotDefined, "*", self.class, x.class
+      raise ErrOperationNotDefined, ["*", self.class, x.class]
     else
       apply_through_coercion(x, __method__)
     end
@@ -2190,7 +2190,7 @@ class Vector
       els = @elements.collect{|e| e / x}
       self.class.elements(els, false)
     when Matrix, Vector
-      raise ErrOperationNotDefined, "/", self.class, x.class
+      raise ErrOperationNotDefined, ["/", self.class, x.class]
     else
       apply_through_coercion(x, __method__)
     end
