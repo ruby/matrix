@@ -1,4 +1,0 @@
-sudo: false
-language: ruby
-rvm:
-  - ruby-head
