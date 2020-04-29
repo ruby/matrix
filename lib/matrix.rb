@@ -827,6 +827,16 @@ class Matrix
   end
   alias_method :cofactor_expansion, :laplace_expansion
 
+  #
+  # Returns the adjoint of the matrix.
+  #
+  #   Matrix[ [i,1],[2,-i] ].adjoint
+  #   #  => -i 2
+  #   #      1 i
+  #
+  def adjoint
+    conjugate.transpose
+  end
 
   #--
   # TESTING -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -984,11 +994,13 @@ class Matrix
   #
   def unitary?
     raise ErrDimensionMismatch unless square?
-    rows.each_with_index do |row, i|
+    adj_conj = adjoint
+
+    row_count.times do |i|
       column_count.times do |j|
         s = 0
         row_count.times do |k|
-          s += row[k].conj * rows[k][j]
+          s += adj_conj[i, k] * self[k, j]
         end
         return false unless s == (i == j ? 1 : 0)
       end

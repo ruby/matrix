@@ -360,6 +360,20 @@ class TestMatrix < Test::Unit::TestCase
     assert_raise(RuntimeError) { Matrix.empty(0, 0).laplace_expansion(row: 0) }
   end
 
+  def test_adjoint
+    assert_equal(Matrix.empty, Matrix.empty.adjoint)
+    assert_equal(Matrix[[1]], Matrix[[1]].adjoint)
+    assert_equal(Matrix[[9,-6],[-3,7]], Matrix[[9,-3],[-6,7]].adjoint)
+    assert_equal(Matrix[[45,3,-7],[6,-1,0],[-7,0,0]], Matrix[[45,6,-7],[3,-1,0],[-7,0,0]].adjoint)
+    assert_equal(@m1.transpose, @m1.adjoint)
+    assert_equal(@m4.transpose, @m4.adjoint)
+    assert_equal(Matrix[[Complex(1,-2),1], [Complex(0,-1), 2], [0,3]], @c1.adjoint)
+    assert_equal(@e1.transpose, @e1.adjoint)
+    assert_equal(@e2.transpose, @e2.adjoint)
+    assert_equal(Matrix[[0,Complex(0,1)], [Complex(0, -1), 0]], Matrix[[0,Complex(0,1)], [Complex(0, -1), 0]].adjoint)
+    assert_equal(Matrix[[Complex(0,1), 0], [0, Complex(0,-1)]], Matrix[[Complex(0, -1), 0], [0, Complex(0, 1)]].adjoint)
+  end
+
   def test_regular?
     assert(Matrix[[1, 0], [0, 1]].regular?)
     assert(Matrix[[1, 0, 0], [0, 1, 0], [0, 0, 1]].regular?)
@@ -377,6 +391,15 @@ class TestMatrix < Test::Unit::TestCase
     assert(Matrix[[1, 0, 0], [0, 1, 0], [0, 0, 1]].square?)
     assert(Matrix[[1, 0, 0], [0, 0, 1], [0, 0, 1]].square?)
     assert(!Matrix[[1, 0, 0], [0, 1, 0]].square?)
+  end
+
+  def test_unitary?
+    assert(Matrix[[0,1], [1,0]].unitary?)
+    assert(Matrix[[0,Complex(0,-1)], [Complex(0,1),0]].unitary?)
+    assert(Matrix[[1,0], [0, -1]].unitary?)
+    assert(!Matrix[[1,1], [1,1]].unitary?)
+    assert(Matrix[[1,0,0,0], [0,0,1,0], [0,1,0,0], [0,0,0,1]].unitary?)
+    assert(Matrix[[1,0,0,0], [0,1,0,0], [0,0,0,1], [0,0,1,0]].unitary?)
   end
 
   def test_mul
