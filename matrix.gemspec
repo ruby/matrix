@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.license       = "BSD-2-Clause"
   spec.required_ruby_version = ">= 2.5.0"
 
-  spec.files         = [".gitignore", ".travis.yml", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "bin/console", "bin/setup", "lib/matrix.rb", "lib/matrix/eigenvalue_decomposition.rb", "lib/matrix/lup_decomposition.rb", "lib/matrix/version.rb", "matrix.gemspec"]
+  spec.files         = [".gitignore", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "bin/console", "bin/setup", "lib/matrix.rb", "lib/matrix/eigenvalue_decomposition.rb", "lib/matrix/lup_decomposition.rb", "lib/matrix/version.rb", "matrix.gemspec"]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
