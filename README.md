@@ -1,4 +1,4 @@
-# Matrix [![Version](https://badge.fury.io/rb/matrix.svg)](https://badge.fury.io/rb/matrix) [![Default Gem](https://img.shields.io/badge/stdgem-default-9c1260.svg)](https://stdgems.org/matrix/)  [![Travis](https://travis-ci.com/ruby/matrix.svg)](https://travis-ci.com/ruby/matrix)
+# Matrix [![Version](https://badge.fury.io/rb/matrix.svg)](https://badge.fury.io/rb/matrix) [![Default Gem](https://img.shields.io/badge/stdgem-default-9c1260.svg)](https://stdgems.org/matrix/)  [![Test](https://github.com/ruby/matrix/workflows/test/badge.svg)](https://github.com/ruby/matrix/actions?query=workflow%3Atest)
 
 An implementation of `Matrix` and `Vector` classes.
 
