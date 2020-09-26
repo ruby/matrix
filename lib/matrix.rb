@@ -532,7 +532,8 @@ class Matrix
   alias map! collect!
 
   def freeze
-    @rows.freeze
+    @rows.each(&:freeze).freeze
+
     super
   end
 
@@ -2118,6 +2119,9 @@ class Vector
     all?(&:zero?)
   end
 
+  #
+  # Makes the matrix frozen and Ractor-shareable
+  #
   def freeze
     @elements.freeze
     super
