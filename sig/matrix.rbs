@@ -1,11 +1,7 @@
-type numeric = Integer | Float | Rational | Complex
-
-class Matrix
-  @rows : Array[Array[numeric]]
-  attr_reader rows: Array[Array[numeric]]
+class Matrix[unchecked out Elem]
+  @rows : Array[Array[Elem]]
 end
 
-class Vector
-  @elements : Array[numeric]
-  attr_reader elements: Array[numeric]
+class Vector[unchecked out Elem]
+  @elements : Array[Elem]
 end
