@@ -1,0 +1,9 @@
+type numeric = Integer | Float | Rational | Complex
+
+class Matrix
+  @rows : Array[Array[numeric]]
+end
+
+class Vector
+  @elements : Array[numeric]
+end
