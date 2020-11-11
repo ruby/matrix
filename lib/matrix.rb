@@ -562,35 +562,35 @@ class Matrix
         row.each(&block)
       end
     when :diagonal
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         yield row.fetch(row_index){return self}
       end
     when :off_diagonal
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         column_count.times do |col_index|
           yield row[col_index] unless row_index == col_index
         end
       end
     when :lower
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         0.upto([row_index, last].min) do |col_index|
           yield row[col_index]
         end
       end
     when :strict_lower
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         [row_index, column_count].min.times do |col_index|
           yield row[col_index]
         end
       end
     when :strict_upper
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         (row_index+1).upto(last) do |col_index|
           yield row[col_index]
         end
       end
     when :upper
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         row_index.upto(last) do |col_index|
           yield row[col_index]
         end
@@ -618,41 +618,41 @@ class Matrix
     last = column_count - 1
     case which
     when :all
-      @rows.each.with_index do |row, row_index|
-        row.each.with_index do |e, col_index|
+      @rows.each_with_index do |row, row_index|
+        row.each_with_index do |e, col_index|
           yield e, row_index, col_index
         end
       end
     when :diagonal
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         yield row.fetch(row_index){return self}, row_index, row_index
       end
     when :off_diagonal
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         column_count.times do |col_index|
           yield row[col_index], row_index, col_index unless row_index == col_index
         end
       end
     when :lower
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         0.upto([row_index, last].min) do |col_index|
           yield row[col_index], row_index, col_index
         end
       end
     when :strict_lower
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         [row_index, column_count].min.times do |col_index|
           yield row[col_index], row_index, col_index
         end
       end
     when :strict_upper
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         (row_index+1).upto(last) do |col_index|
           yield row[col_index], row_index, col_index
         end
       end
     when :upper
-      @rows.each.with_index do |row, row_index|
+      @rows.each_with_index do |row, row_index|
         row_index.upto(last) do |col_index|
           yield row[col_index], row_index, col_index
         end
@@ -873,10 +873,10 @@ class Matrix
   #
   def normal?
     raise ErrDimensionMismatch unless square?
-    rows.each.with_index do |row_i, i|
-      rows.each.with_index do |row_j, j|
+    rows.each_with_index do |row_i, i|
+      rows.each_with_index do |row_j, j|
         s = 0
-        rows.each.with_index do |row_k, k|
+        rows.each_with_index do |row_k, k|
           s += row_i[k] * row_j[k].conj - row_k[i].conj * row_k[j]
         end
         return false unless s == 0
@@ -892,8 +892,8 @@ class Matrix
   def orthogonal?
     raise ErrDimensionMismatch unless square?
 
-    rows.each.with_index do |row_i, i|
-      rows.each.with_index do |row_j, j|
+    rows.each_with_index do |row_i, i|
+      rows.each_with_index do |row_j, j|
         s = 0
         row_count.times do |k|
           s += row_i[k] * row_j[k]
@@ -911,9 +911,9 @@ class Matrix
   def permutation?
     raise ErrDimensionMismatch unless square?
     cols = Array.new(column_count)
-    rows.each.with_index do |row, i|
+    rows.each_with_index do |row, i|
       found = false
-      row.each.with_index do |e, j|
+      row.each_with_index do |e, j|
         if e == 1
           return false if found || cols[j]
           found = cols[j] = true
@@ -985,8 +985,8 @@ class Matrix
   #
   def unitary?
     raise ErrDimensionMismatch unless square?
-    rows.each.with_index do |row_i, i|
-      rows.each.with_index do |row_j, j|
+    rows.each_with_index do |row_i, i|
+      rows.each_with_index do |row_j, j|
         s = 0
         row_count.times do |k|
           s += row_i[k].conj * row_j[k]
