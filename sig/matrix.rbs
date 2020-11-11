@@ -2,8 +2,10 @@ type numeric = Integer | Float | Rational | Complex
 
 class Matrix
   @rows : Array[Array[numeric]]
+  attr_reader rows: Array[Array[numeric]]
 end
 
 class Vector
   @elements : Array[numeric]
+  attr_reader elements: Array[numeric]
 end
