@@ -1,0 +1,7 @@
+class Matrix[unchecked out Elem]
+  @rows : Array[Array[Elem]]
+end
+
+class Vector[unchecked out Elem]
+  @elements : Array[Elem]
+end

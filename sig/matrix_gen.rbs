@@ -1,0 +1,208 @@
+# Classes
+class Matrix
+  VERSION : String
+  SELECTORS : {:all=>true, :diagonal=>true, :off_diagonal=>true, :lower=>true, :strict_lower=>true, :strict_upper=>true, :upper=>true}
+  include CoercionHelper
+  include Enumerable
+  include ExceptionForMatrix
+  extend ConversionHelper
+  attr_reader rows : (Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Array[Integer] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Array[Vector?] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Array[nil] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Complex | Float | Integer | Rational | String)?] | Array[Array[Integer]] | Array[Array[untyped]] | String)?
+  attr_reader column_count : (Complex | Float | Integer | Matrix | Range | Rational)?
+  def self.[] : (*Vector) -> Matrix
+  def self.rows : (Array[Array[Vector] | Vector], ?bool) -> Matrix
+  def self.columns : (untyped) -> Matrix
+  def self.build : (Integer, ?(Complex | Float | Integer | Matrix | Range | Rational)?) ?{ (Integer, Integer) -> ((Complex | Float | Matrix | Numeric | Vector)?) } -> (Enumerator[untyped] | Matrix)
+  def self.diagonal : (*Array[Integer] | Array[untyped]) -> Matrix
+  def self.scalar : ((Complex | Float | Integer | Matrix | Range | Rational)?, Integer) -> Matrix
+  def self.identity : ((Complex | Float | Integer | Matrix | Range | Rational)?) -> Matrix
+  def self.zero : (untyped, ?untyped) -> Matrix
+  def self.row_vector : (Vector) -> Matrix
+  def self.column_vector : (Vector) -> Matrix
+  def self.empty : (?(Complex | Float | Integer | Matrix | Range | Rational)?, ?Integer) -> Matrix
+  def self.vstack : (Matrix, *untyped) -> Matrix
+  def self.hstack : (Matrix, *untyped) -> Matrix
+  def self.combine : (*Matrix) ?{ (Array[nil]) -> untyped } -> (Enumerator[untyped] | Matrix)
+  def combine : (*untyped) ?{ (Array[nil]) -> untyped } -> (Enumerator[untyped] | Matrix)
+  def initialize : ((Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Array[Integer] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Array[Vector?] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Array[nil] | Complex | Float | Integer | Rational | String)?] | Array[(Array[(Complex | Float | Integer | Rational | String)?] | Complex | Float | Integer | Rational | String)?] | Array[Array[Integer]] | Array[Array[untyped]] | String)?, ?(Complex | Float | Integer | Matrix | Range | Rational)?) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+  def new_matrix : (Array[(Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[Complex | Float | Integer | Rational] | Array[Integer] | Enumerator[untyped] | Integer | Matrix | String | Vector)?] | Array[Array[untyped]], ?(Complex | Float | Integer | Matrix | Range | Rational)?) -> Matrix
+  def [] : (Integer?, Integer?) -> nil
+  def []= : (untyped, untyped, untyped) -> (Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Array[untyped] | Enumerable[untyped, untyped] | Enumerator[untyped] | Matrix | Range | Vector)
+  def check_range : (untyped, :column | :row) -> Range?
+  def check_int : (untyped, :column | :row) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+  def set_value : ((Complex | Float | Integer | Matrix | Range | Rational)?, (Complex | Float | Integer | Matrix | Range | Rational)?, untyped) -> untyped
+  def set_row_and_col_range : (Range, Range, untyped) -> (Enumerable[untyped, untyped] | Range)
+  def set_row_range : (Range, (Complex | Float | Integer | Matrix | Range | Rational)?, untyped) -> (Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Enumerator[untyped] | Matrix | Vector)
+  def set_column_vector : (Range, (Complex | Float | Integer | Matrix | Range | Rational)?, untyped) -> untyped
+  def set_col_range : ((Complex | Float | Integer | Matrix | Range | Rational)?, Range, untyped) -> Array[untyped]
+  def row_count : -> Integer
+  def row : (Integer?) -> ((Matrix | Vector)?)
+  def column : (Integer?) -> ((Matrix | Vector)?)
+  def collect : (?:all) ?{ (?(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) } -> (Enumerator[untyped] | Matrix)
+  def collect! : (?:all) ?{ (?(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) } -> (Enumerator[untyped] | Matrix)
+  def freeze : -> Matrix
+  def each : (?:all | :off_diagonal | :strict_lower | :strict_upper) ?{ ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> untyped } -> (Enumerator[untyped] | Matrix)
+  def each_with_index : (?:all | :strict_upper | :upper) ?{ ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?, Integer, ?Integer) -> ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector | true)?) } -> (Enumerator[untyped] | Matrix)
+  def index : (*untyped) -> ((Enumerator[untyped] | [Integer, Integer])?)
+  def minor : (*untyped) -> Matrix?
+  def first_minor : (Integer?, Integer?) -> Matrix
+  def cofactor : (Integer?, Integer?) -> ((Complex | Float | Matrix | Numeric | Vector)?)
+  def adjugate : -> (Enumerator[untyped] | Matrix)
+  def laplace_expansion : (?row: Integer?, ?column: nil) -> untyped
+  def diagonal? : -> bool
+  def empty? : -> bool
+  def hermitian? : -> bool
+  def lower_triangular? : -> bool
+  def normal? : -> bool
+  def orthogonal? : -> bool
+  def permutation? : -> bool
+  def real? : -> bool
+  def regular? : -> bool
+  def singular? : -> bool
+  def square? : -> bool
+  def symmetric? : -> bool
+  def antisymmetric? : -> bool
+  def unitary? : -> bool
+  def upper_triangular? : -> bool
+  def zero? : -> bool
+  def == : ((Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Range | Rational | String | Vector)?) -> bool
+  def eql? : (untyped) -> bool
+  def initialize_copy : (untyped) -> (Array[Integer | String]?)
+  def hash : -> Integer
+  def * : ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Matrix | Vector)?)
+  def + : ((Array[Vector] | Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Range | Rational | String | Vector)?) -> Matrix
+  def - : ((Array[Vector] | Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> Matrix
+  def / : (untyped) -> ((Matrix | Vector)?)
+  def hadamard_product : (untyped) -> (Enumerator[untyped] | Matrix)
+  def inverse : -> untyped
+  def inverse_from : (untyped) -> Matrix
+  def ** : (untyped) -> Matrix?
+  def +@ : -> Matrix
+  def -@ : -> (Enumerator[untyped] | Matrix)
+  def abs : -> (Enumerator[untyped] | Matrix)
+  def determinant : -> (Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)
+  def determinant_bareiss : -> Integer
+  def determinant_e : -> (Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)
+  def hstack : (*untyped) -> Matrix
+  def rank : -> Integer
+  def rank_e : -> Integer
+  def round : (?Integer) -> Array[untyped]
+  def trace : -> (Complex | Float | Integer | Rational)
+  def transpose : -> Matrix
+  def vstack : (*untyped) -> Matrix
+  def eigensystem : -> untyped
+  def lup : -> untyped
+  def conjugate : -> (Enumerator[untyped] | Matrix)
+  def adjoint : -> Matrix
+  def imaginary : -> (Enumerator[untyped] | Matrix)
+  def real : -> (Enumerator[untyped] | Matrix)
+  def rect : -> ([Enumerator[untyped] | Matrix, untyped])
+  def coerce : (untyped) -> [Scalar, Matrix]
+  def row_vectors : -> (Array[(Matrix | Vector)?])
+  def column_vectors : -> (Array[(Matrix | Vector)?])
+  def to_matrix : -> Matrix
+  def to_a : -> (Array[(Integer | String)?])
+  def elements_to_f : -> Array[untyped]
+  def elements_to_i : -> Array[untyped]
+  def elements_to_r : -> Array[untyped]
+  def to_s : -> String
+  def inspect : -> String
+
+  module ConversionHelper
+    def convert_to_array : ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?, ?bool) -> ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?])?)
+  end
+
+  module CoercionHelper
+    def apply_through_coercion : ((Array[Vector] | Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Numeric | Range | Rational | String)?, Symbol?) -> untyped
+    def self.coerce_to : ((Complex | Float | Integer | Matrix | Range | Rational)?, Integer.class | Matrix.class, :to_int | :to_matrix) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+    def self.coerce_to_int : ((Complex | Float | Integer | Matrix | Range | Rational)?) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+    def self.coerce_to_matrix : (Matrix) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+    def self.check_range : ((Complex | Float | Integer | Matrix | Range | Rational)?, (Complex | Float | Integer | Matrix | Range | Rational)?, :column | :row | :vector) -> Range
+    def self.check_int : ((Complex | Float | Integer | Matrix | Range | Rational)?, (Complex | Float | Integer | Matrix | Range | Rational)?, :column | :index | :row) -> ((Complex | Float | Integer | Matrix | Range | Rational)?)
+  end
+
+  class Scalar < Numeric
+    include CoercionHelper
+    include ExceptionForMatrix
+    @value : untyped
+    def initialize : (untyped) -> untyped
+    def + : (untyped) -> Scalar
+    def - : (untyped) -> Scalar
+    def * : (untyped) -> Scalar
+    def / : (untyped) -> Scalar
+    def ** : (untyped) -> Scalar
+  end
+end
+
+module ExceptionForMatrix
+  class ErrDimensionMismatch < StandardError
+    def initialize : (?nil) -> void
+  end
+
+  class ErrNotRegular < StandardError
+    def initialize : (?nil) -> void
+  end
+
+  class ErrOperationNotDefined < StandardError
+    def initialize : (untyped) -> void
+  end
+
+  class ErrOperationNotImplemented < StandardError
+    def initialize : (untyped) -> void
+  end
+end
+
+class Vector
+  include Enumerable
+  include ExceptionForMatrix
+  include Matrix::CoercionHelper
+  extend Matrix::ConversionHelper
+  attr_reader elements : (Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?])?
+  def self.[] : (*(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> Vector
+  def self.elements : (Array[(Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Enumerator[untyped], ?bool) -> Vector
+  def self.basis : (size: Integer, index: Integer) -> Vector
+  def self.zero : (untyped) -> Vector
+  def initialize : ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?])?) -> ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?])?)
+  def [] : (Integer) -> ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?)
+  def []= : ((Complex | Float | Integer | Matrix | Range | Rational)?, (Array[Vector] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[untyped] | Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[untyped] | Complex | Float | Integer | Numeric | Rational | String)?] | Array[Array[untyped] | Complex | Float | Integer | Numeric | Rational | String] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?)
+  def set_value : ((Complex | Float | Integer | Matrix | Range | Rational)?, (Array[Vector] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[Vector] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?)
+  def set_range : (Range, (Array[Vector] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[(Array[Vector] | Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Array[untyped] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Rational | String)?] | Array[Array[untyped] | Complex | Float | Integer | Numeric | Rational | String] | Array[untyped])?)
+  def round : (?Integer) -> Array[untyped]
+  def size : -> Integer
+  def each : ?{ ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> untyped } -> (Enumerator[untyped] | Vector)
+  def each2 : (untyped) ?{ ((Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?, untyped) -> (Complex | Float | Integer | Rational) } -> (Enumerator[untyped] | Vector)
+  def collect2 : (Vector) ?{ ((Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?, (Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> (Complex | Float | Integer | Matrix | Rational | String | Vector) } -> (Array[Complex | Float | Integer | Matrix | Rational | String | Vector] | Array[untyped] | Enumerator[untyped])
+  def self.independent? : (*Vector) -> bool
+  def independent? : (*untyped) -> bool
+  def zero? : -> bool
+  def freeze : -> Vector
+  def initialize_copy : (untyped) -> ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?])?)
+  def == : (Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector) -> bool
+  def eql? : (untyped) -> bool
+  def hash : -> Integer
+  def * : ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Matrix | Vector)?)
+  def + : ((Array[Vector] | Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> (Matrix | Vector)
+  def - : ((Array[Vector] | Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> (Matrix | Vector)
+  def / : (Float) -> Vector
+  def +@ : -> Vector
+  def -@ : -> (Enumerator[untyped] | Vector)
+  def inner_product : (untyped) -> (Complex | Float | Integer | Rational)
+  def cross_product : (*untyped) -> Vector
+  def collect : { ((Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) -> ((Array[Vector] | Complex | Float | Integer | Matrix | Numeric | Rational | String | Vector)?) } -> (Enumerator[untyped] | Vector)
+  def collect! : -> (Enumerator[untyped] | Vector)
+  def magnitude : -> Float
+  def map2 : (untyped) -> (Enumerator[untyped] | Vector)
+  def normalize : -> Vector
+  def angle_with : (untyped) -> (Float | Integer)
+  def covector : -> Matrix
+  def to_a : -> ((Array[(Array[Vector] | Complex | Enumerator[untyped] | Float | Integer | Matrix | Numeric | Rational | String | Vector)?] | Array[(Complex | Float | Integer | Matrix | Rational | String | Vector)?])?)
+  def to_matrix : -> Matrix
+  def elements_to_f : -> Array[untyped]
+  def elements_to_i : -> Array[untyped]
+  def elements_to_r : -> Array[untyped]
+  def coerce : (untyped) -> [Matrix::Scalar, Vector]
+  def to_s : -> String
+  def inspect : -> String
+
+  class ZeroVectorError < StandardError
+  end
+end
