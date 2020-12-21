@@ -1435,6 +1435,30 @@ class Matrix
     rank
   end
 
+  #
+  # Returns a new matrix where elements are rotated.
+  # The +quarter_turns+ option defines the direction of the rotation (defaults
+  # to :clockwise):
+  # * :clockwise: "turn right" - first row becomes last column
+  # * :counter_clockwise: "turn left" - first row becomes first column
+  #   (but with elements in reverse order)
+  # * :half_turn: first row becomes last row, elements in reverse order
+  #
+  def rotate_entries(quarter_turns: :clockwise)
+    case quarter_turns
+      when :clockwise
+        Matrix[*column_vectors.map{|c| c.to_a.reverse}]
+      when :counter_clockwise
+        Matrix[*column_vectors.map{|c| c}.reverse]
+      when :half_turn
+        Matrix[*row_vectors.map{|c| c.to_a.reverse}.reverse]
+      when Numeric
+        raise "Not yet implemented"
+      else
+        raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
+    end
+  end
+
   # Returns a matrix with entries rounded to the given precision
   # (see Float#round)
   #

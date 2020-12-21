@@ -821,4 +821,15 @@ class TestMatrix < Test::Unit::TestCase
     end.take
     assert_same obj1, obj2
   end if defined?(Ractor)
+
+  def test_rotate
+    assert_equal(Matrix[[4, 1], [5, 2], [6, 3]], @m1.rotate_entries)
+    assert_equal(@m1.rotate_entries, @m1.rotate_entries(quarter_turns: :clockwise))
+    assert_equal(Matrix[[4, 1], [5, 2], [6, 3]],
+                 @m1.rotate_entries(quarter_turns: :clockwise))
+    assert_equal(Matrix[[3, 6], [2, 5], [1, 4]],
+                 @m1.rotate_entries(quarter_turns: :counter_clockwise))
+    assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
+                 @m1.rotate_entries(quarter_turns: :half_turn))
+  end
 end
