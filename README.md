@@ -20,7 +20,7 @@ And then execute:
 
     $ bundle
 
-To make sure the gem takes over the builtin library, be to call `bundle exec ...` (or to call `gem 'matrix' explicitly).
+To make sure that the gem takes precedence over the builtin library, call `bundle exec ...` (or call `gem 'matrix'` explicitly).
 
 ## Usage
 
