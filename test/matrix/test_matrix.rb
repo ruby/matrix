@@ -822,7 +822,7 @@ class TestMatrix < Test::Unit::TestCase
     assert_same obj1, obj2
   end if defined?(Ractor)
 
-  def test_rotate
+  def test_rotate_with_symbol
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]], @m1.rotate_entries)
     assert_equal(@m1.rotate_entries, @m1.rotate_entries(quarter_turns: :clockwise))
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]],
@@ -839,5 +839,32 @@ class TestMatrix < Test::Unit::TestCase
                  @e1.rotate_entries(quarter_turns: :counter_clockwise))
     assert_equal(Matrix.empty(2,0),
                  @e1.rotate_entries(quarter_turns: :half_turn))
+    assert_equal(Matrix.empty(0,3),
+                 @e2.rotate_entries(quarter_turns: :half_turn))
+  end
+
+  def test_rotate_with_numeric
+    assert_equal(Matrix[[4, 1], [5, 2], [6, 3]],
+                 @m1.rotate_entries(quarter_turns: 1))
+    assert_equal(@m2.rotate_entries(quarter_turns: :half_turn),
+                 @m2.rotate_entries(quarter_turns: 2))
+    assert_equal(@m2.rotate_entries(quarter_turns: :half_turn),
+                 @m1.rotate_entries(quarter_turns: 2))
+    assert_equal(@m1.rotate_entries(quarter_turns: :counter_clockwise),
+                 @m1.rotate_entries(quarter_turns: 3))
+    assert_equal(@m1,
+                 @m1.rotate_entries(quarter_turns: 4))
+    assert_equal(@m1,
+                 @m1.rotate_entries(quarter_turns: 4))
+    assert_not_same(@m1,
+                    @m1.rotate_entries(quarter_turns: 4))
+    assert_equal(@m1.rotate_entries(quarter_turns: :clockwise),
+                 @m1.rotate_entries(quarter_turns: 5))
+    assert_equal(Matrix.empty(0,2),
+                 @e1.rotate_entries(quarter_turns: 1))
+    assert_equal(@e2,
+                 @e2.rotate_entries(quarter_turns: 2))
+    assert_equal(@e2.rotate_entries(quarter_turns: 1),
+                 @e2.rotate_entries(quarter_turns: 3))
   end
 end

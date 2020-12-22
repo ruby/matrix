@@ -1452,11 +1452,12 @@ class Matrix
       when :half_turn
         return Matrix.empty(row_count, column_count)
       when Numeric
-        # % 4 == 0 -> dup
-        # % 4 == 1 -> clockwise
-        # % 4 == 2 -> half_turn
-        # % 4 == 3 -> counter_clockwise
-        raise "Not yet implemented"
+        case quarter_turns % 4
+        when 0, 2
+          return self.dup
+        when 1, 3
+          return rotate_entries(quarter_turns: :clockwise)
+        end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
       end
@@ -1470,11 +1471,16 @@ class Matrix
       when :half_turn
         Matrix[*row_vectors.map{|c| c.to_a.reverse}.reverse]
       when Numeric
-        # % 4 == 0 -> dup
-        # % 4 == 1 -> clockwise
-        # % 4 == 2 -> half_turn
-        # % 4 == 3 -> counter_clockwise
-        raise "Not yet implemented"
+        case quarter_turns % 4
+        when 0
+          self.dup
+        when 1
+          rotate_entries(quarter_turns: :clockwise)
+        when 2
+          rotate_entries(quarter_turns: :half_turn)
+        when 3
+          rotate_entries(quarter_turns: :counter_clockwise)
+        end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
     end
