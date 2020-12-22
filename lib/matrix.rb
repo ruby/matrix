@@ -1444,6 +1444,10 @@ class Matrix
   #   (but with elements in reverse order)
   # * :half_turn: first row becomes last row, elements in reverse order
   #
+  #   m = Matrix[ [1, 2], [3, 4] ]
+  #   r = m.rotate_entries(quarter_turns: :clockwise)
+  #   #  => Matrix[[3, 1], [4, 2]]
+  #
   def rotate_entries(quarter_turns: :clockwise)
     if empty?
       case quarter_turns
