@@ -1445,6 +1445,23 @@ class Matrix
   # * :half_turn: first row becomes last row, elements in reverse order
   #
   def rotate_entries(quarter_turns: :clockwise)
+    if empty?
+      case quarter_turns
+      when :clockwise, :counter_clockwise
+        return Matrix.empty(column_count, row_count) if quarter_turns
+      when :half_turn
+        return Matrix.empty(row_count, column_count)
+      when Numeric
+        # % 4 == 0 -> dup
+        # % 4 == 1 -> clockwise
+        # % 4 == 2 -> half_turn
+        # % 4 == 3 -> counter_clockwise
+        raise "Not yet implemented"
+      else
+        raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
+      end
+    end
+
     case quarter_turns
       when :clockwise
         Matrix[*column_vectors.map{|c| c.to_a.reverse}]
@@ -1453,6 +1470,10 @@ class Matrix
       when :half_turn
         Matrix[*row_vectors.map{|c| c.to_a.reverse}.reverse]
       when Numeric
+        # % 4 == 0 -> dup
+        # % 4 == 1 -> clockwise
+        # % 4 == 2 -> half_turn
+        # % 4 == 3 -> counter_clockwise
         raise "Not yet implemented"
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"

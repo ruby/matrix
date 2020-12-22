@@ -831,5 +831,13 @@ class TestMatrix < Test::Unit::TestCase
                  @m1.rotate_entries(quarter_turns: :counter_clockwise))
     assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
                  @m1.rotate_entries(quarter_turns: :half_turn))
+    assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
+                 @m1.rotate_entries(quarter_turns: :half_turn))
+    assert_equal(Matrix.empty(0,2),
+                 @e1.rotate_entries(quarter_turns: :clockwise))
+    assert_equal(Matrix.empty(0,2),
+                 @e1.rotate_entries(quarter_turns: :counter_clockwise))
+    assert_equal(Matrix.empty(2,0),
+                 @e1.rotate_entries(quarter_turns: :half_turn))
   end
 end
