@@ -824,57 +824,57 @@ class TestMatrix < Test::Unit::TestCase
 
   def test_rotate_with_symbol
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]], @m1.rotate_entries)
-    assert_equal(@m1.rotate_entries, @m1.rotate_entries(quarter_turns: :clockwise))
+    assert_equal(@m1.rotate_entries, @m1.rotate_entries(:clockwise))
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]],
-                 @m1.rotate_entries(quarter_turns: :clockwise))
+                 @m1.rotate_entries(:clockwise))
     assert_equal(Matrix[[3, 6], [2, 5], [1, 4]],
-                 @m1.rotate_entries(quarter_turns: :counter_clockwise))
+                 @m1.rotate_entries(:counter_clockwise))
     assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
-                 @m1.rotate_entries(quarter_turns: :half_turn))
+                 @m1.rotate_entries(:half_turn))
     assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
-                 @m1.rotate_entries(quarter_turns: :half_turn))
+                 @m1.rotate_entries(:half_turn))
     assert_equal(Matrix.empty(0,2),
-                 @e1.rotate_entries(quarter_turns: :clockwise))
+                 @e1.rotate_entries(:clockwise))
     assert_equal(Matrix.empty(0,2),
-                 @e1.rotate_entries(quarter_turns: :counter_clockwise))
+                 @e1.rotate_entries(:counter_clockwise))
     assert_equal(Matrix.empty(2,0),
-                 @e1.rotate_entries(quarter_turns: :half_turn))
+                 @e1.rotate_entries(:half_turn))
     assert_equal(Matrix.empty(0,3),
-                 @e2.rotate_entries(quarter_turns: :half_turn))
+                 @e2.rotate_entries(:half_turn))
   end
 
   def test_rotate_with_numeric
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]],
-                 @m1.rotate_entries(quarter_turns: 1))
-    assert_equal(@m2.rotate_entries(quarter_turns: :half_turn),
-                 @m2.rotate_entries(quarter_turns: 2))
-    assert_equal(@m2.rotate_entries(quarter_turns: :half_turn),
-                 @m1.rotate_entries(quarter_turns: 2))
-    assert_equal(@m1.rotate_entries(quarter_turns: :counter_clockwise),
-                 @m1.rotate_entries(quarter_turns: 3))
+                 @m1.rotate_entries(1))
+    assert_equal(@m2.rotate_entries(:half_turn),
+                 @m2.rotate_entries(2))
+    assert_equal(@m2.rotate_entries(:half_turn),
+                 @m1.rotate_entries(2))
+    assert_equal(@m1.rotate_entries(:counter_clockwise),
+                 @m1.rotate_entries(3))
     assert_equal(@m1,
-                 @m1.rotate_entries(quarter_turns: 4))
+                 @m1.rotate_entries(4))
     assert_equal(@m1,
-                 @m1.rotate_entries(quarter_turns: 4))
+                 @m1.rotate_entries(4))
     assert_not_same(@m1,
-                    @m1.rotate_entries(quarter_turns: 4))
-    assert_equal(@m1.rotate_entries(quarter_turns: :clockwise),
-                 @m1.rotate_entries(quarter_turns: 5))
+                    @m1.rotate_entries(4))
+    assert_equal(@m1.rotate_entries(:clockwise),
+                 @m1.rotate_entries(5))
     assert_equal(Matrix.empty(0,2),
-                 @e1.rotate_entries(quarter_turns: 1))
+                 @e1.rotate_entries(1))
     assert_equal(@e2,
-                 @e2.rotate_entries(quarter_turns: 2))
-    assert_equal(@e2.rotate_entries(quarter_turns: 1),
-                 @e2.rotate_entries(quarter_turns: 3))
-    assert_equal(@e2.rotate_entries(quarter_turns: :counter_clockwise),
-                 @e2.rotate_entries(quarter_turns: -1))
-    assert_equal(@m1.rotate_entries(quarter_turns: :counter_clockwise),
-                 @m1.rotate_entries(quarter_turns: -1))
+                 @e2.rotate_entries(2))
+    assert_equal(@e2.rotate_entries(1),
+                 @e2.rotate_entries(3))
+    assert_equal(@e2.rotate_entries(:counter_clockwise),
+                 @e2.rotate_entries(-1))
+    assert_equal(@m1.rotate_entries(:counter_clockwise),
+                 @m1.rotate_entries(-1))
     assert_equal(Matrix[[6, 5, 4], [3, 2, 1]],
-                 @m1.rotate_entries(quarter_turns: -2))
+                 @m1.rotate_entries(-2))
     assert_equal(@m1,
-                 @m1.rotate_entries(quarter_turns: -4))
-    assert_equal(@m1.rotate_entries(quarter_turns: -1),
-                 @m1.rotate_entries(quarter_turns: -5))
+                 @m1.rotate_entries(-4))
+    assert_equal(@m1.rotate_entries(-1),
+                 @m1.rotate_entries(-5))
   end
 end

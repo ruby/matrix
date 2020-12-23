@@ -1445,10 +1445,10 @@ class Matrix
   # * :half_turn: first row becomes last row, elements in reverse order
   #
   #   m = Matrix[ [1, 2], [3, 4] ]
-  #   r = m.rotate_entries(quarter_turns: :clockwise)
+  #   r = m.rotate_entries(:clockwise)
   #   #  => Matrix[[3, 1], [4, 2]]
   #
-  def rotate_entries(quarter_turns: :clockwise)
+  def rotate_entries(quarter_turns=:clockwise)
     if empty?
       case quarter_turns
       when :clockwise, :counter_clockwise
@@ -1460,7 +1460,7 @@ class Matrix
         when 0, 2
           return self.dup
         when 1, 3
-          return rotate_entries(quarter_turns: :clockwise)
+          return rotate_entries(:clockwise)
         end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
@@ -1479,11 +1479,11 @@ class Matrix
         when 0
           self.dup
         when 1
-          rotate_entries(quarter_turns: :clockwise)
+          rotate_entries(:clockwise)
         when 2
-          rotate_entries(quarter_turns: :half_turn)
+          rotate_entries(:half_turn)
         when 3
-          rotate_entries(quarter_turns: :counter_clockwise)
+          rotate_entries(:counter_clockwise)
         end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
