@@ -1449,42 +1449,39 @@ class Matrix
   #   #  => Matrix[[3, 1], [4, 2]]
   #
   def rotate_entries(quarter_turns=:clockwise)
+    if quarter_turns.is_a? Integer
+      quarter_turns = case quarter_turns % 4
+        when 0
+          :dup
+        when 1
+          :clockwise
+        when 2
+          :half_turn
+        when 3
+          :counter_clockwise
+        end
+    end
+
     if empty?
       case quarter_turns
       when :clockwise, :counter_clockwise
-        return Matrix.empty(column_count, row_count) if quarter_turns
-      when :half_turn
+        return Matrix.empty(column_count, row_count)
+      when :half_turn, :dup
         return Matrix.empty(row_count, column_count)
-      when Numeric
-        case quarter_turns % 4
-        when 0, 2
-          return self.dup
-        when 1, 3
-          return rotate_entries(:clockwise)
-        end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
       end
     end
 
     case quarter_turns
+      when :dup
+        self.dup
       when :clockwise
         Matrix[*column_vectors.map{|c| c.to_a.reverse}]
       when :counter_clockwise
         Matrix[*column_vectors.map{|c| c}.reverse]
       when :half_turn
         Matrix[*row_vectors.map{|c| c.to_a.reverse}.reverse]
-      when Numeric
-        case quarter_turns % 4
-        when 0
-          self.dup
-        when 1
-          rotate_entries(:clockwise)
-        when 2
-          rotate_entries(:half_turn)
-        when 3
-          rotate_entries(:counter_clockwise)
-        end
       else
         raise ArgumentError, "expected #{quarter_turns.inspect} to be one of :clockwise, :counter_clockwise, :half_turn or an integer (assuming clockwise rotation)"
     end
