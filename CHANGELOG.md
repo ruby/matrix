@@ -1,20 +1,32 @@
 # Changelog
 
-List of new features:
+List of new feature changes (excluding most bug fixes and optimizations)
 
-## v1.0.0 / Ruby 2.6
+## v0.4.0
 
-* Matrix#antisymmetric? / #skew_symmetric?
+* Add `Matrix#rotate_entries` [#19]
 
-* Matrix#map! / #collect!
+## v0.3.1 / Ruby 3.0
 
-* Matrix#[]=
+* Frozen `Matrix` are Ractor-shareable.
 
-* Vector#map! / #collect!
+## v0.3.0
 
-* Vector#[]=
+* Add `Matrix#adjoint` [#14]
+
+## v0.2.0 / Ruby 2.7
+
+* Add Matrix#abs [ruby/ruby#2199]
+
+## v0.1.0 / Ruby 2.6
+
+* Add `Matrix#antisymmetric?` / `#skew_symmetric?`
+* Add `Matrix#map!` / `#collect!`
+* Add `Matrix#[]=`
+* Add `Vector#map!` / `#collect!`
+* Add `Vector#[]=`
 
 ## Ruby 2.5
 
-* Matrix.combine and Matrix#combine
-* Matrix#hadamard_product and Matrix#entrywise_product
+* Add `Matrix.combine` and `Matrix#combine`
+* `Matrix#hadamard_product` and `Matrix#entrywise_product`
