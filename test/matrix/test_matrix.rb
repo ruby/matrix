@@ -820,13 +820,15 @@ class TestMatrix < Test::Unit::TestCase
   end
 
   def test_ractor
-    obj1 = @m1.freeze
+    assert_ractor(<<~RUBY, require: 'matrix')
+      obj1 = Matrix[[1, 2], [3, 4]].freeze
 
-    obj2 = Ractor.new obj1 do |obj|
-      obj
-    end.take
-    assert_same obj1, obj2
-  end if defined?(Ractor)
+      obj2 = Ractor.new obj1 do |obj|
+        obj
+      end.take
+      assert_same obj1, obj2
+    RUBY
+  end
 
   def test_rotate_with_symbol
     assert_equal(Matrix[[4, 1], [5, 2], [6, 3]], @m1.rotate_entries)
