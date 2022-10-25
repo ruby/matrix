@@ -1228,7 +1228,8 @@ class Matrix
   #
   # Matrix exponentiation.
   # Equivalent to multiplying the matrix by itself N times.
-  # Non integer exponents will be handled by diagonalizing the matrix.
+  # Non-integer exponents will be handled by diagonalizing the matrix;
+  # this is not supported for Complex matrices.
   #
   #   Matrix[[7,6], [3,9]] ** 2
   #   #  => 67 96
@@ -1547,6 +1548,7 @@ class Matrix
   #   v.inv == v_inv # => true
   #   (v * d * v_inv).round(5) == m # => true
   #
+  # This is not supported for Complex matrices
   def eigensystem
     EigenvalueDecomposition.new(self)
   end

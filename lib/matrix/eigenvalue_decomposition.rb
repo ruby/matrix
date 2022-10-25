@@ -1,6 +1,7 @@
 # frozen_string_literal: false
 class Matrix
   # Adapted from JAMA: http://math.nist.gov/javanumerics/jama/
+  # Like JAMA, this code does not support Complex matrices inputs.
 
   # Eigenvalues and eigenvectors of a real matrix.
   #
