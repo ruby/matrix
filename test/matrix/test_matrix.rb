@@ -821,11 +821,15 @@ class TestMatrix < Test::Unit::TestCase
 
   def test_ractor
     assert_ractor(<<~RUBY, require: 'matrix')
+      class Ractor
+        alias value take
+      end unless Ractor.method_defined? :value # compat with Ruby 3.4 and olders
+
       obj1 = Matrix[[1, 2], [3, 4]].freeze
 
       obj2 = Ractor.new obj1 do |obj|
         obj
-      end.take
+      end.value
       assert_same obj1, obj2
     RUBY
   end if defined?(Ractor)
