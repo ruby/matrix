@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.licenses      = ["Ruby", "BSD-2-Clause"]
   spec.required_ruby_version = ">= 2.5.0"
 
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/releases"
+
   spec.files         = ["COPYING", "BSDL", "lib/matrix.rb", "lib/matrix/eigenvalue_decomposition.rb", "lib/matrix/lup_decomposition.rb", "lib/matrix/version.rb", "matrix.gemspec"]
   spec.bindir        = "exe"
   spec.executables   = []
