@@ -145,6 +145,10 @@ class TestVector < Test::Unit::TestCase
     assert_not_equal @v1, @w1
   end
 
+  def test_deconstruct
+    assert_equal(Vector[1, 2, 4, 5, 3].deconstruct, [1, 2, 4, 5, 3])
+  end
+
   def test_hash_equality
     assert @v1.eql?(@v1)
     assert @v1.eql?(@v2)
