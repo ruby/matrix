@@ -46,6 +46,11 @@ class TestMatrix < Test::Unit::TestCase
     assert_not_equal @m1, @n1
   end
 
+  def test_deconstruct
+    assert_equal(Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]].deconstruct,
+                 [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+  end
+
   def test_hash_equality
     assert @m1.eql?(@m1)
     assert @m1.eql?(@m2)
