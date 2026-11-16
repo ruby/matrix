@@ -1038,6 +1038,18 @@ class Matrix
     @rows = @rows.map(&:dup) unless frozen?
   end
 
+  # Returns the rows array.
+  #
+  # Note: Unlike #to_a, this does not copy the rows.
+  #
+  #    m =  Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]  # => Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+  #    m in Matrix[[a, 2, 3], [4, b, 6], [7, 8, c]]  # => true
+  #    diagonal = [a, b, c]                          # => [1, 5, 9]
+  #    diagonal.sum == m.trace                       # => true
+  def deconstruct
+    @rows
+  end
+
   #
   # Returns a hash-code for the matrix.
   #
@@ -2200,6 +2212,16 @@ class Vector
   def ==(other)
     return false unless Vector === other
     @elements == other.elements
+  end
+
+  # Returns the elements array.
+  #
+  # Note: Unlike #to_a, this does not copy the elements.
+  #    vec =  Vector[1, 2, 4, 5, 3]  # => Vector[1, 2, 4, 5, 3]
+  #    vec in Vector[1, 2, *ff , 3]  # => true
+  #    ff                            # => [4, 5]
+  def deconstruct
+    @elements
   end
 
   def eql?(other)
