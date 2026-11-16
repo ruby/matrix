@@ -477,6 +477,8 @@ class Matrix
       # Outer loop over eigenvalue index
 
       iter = 0
+      total_iter = 0
+      max_iter = 30 * nn
       while (n >= low) do
 
         # Look for single small sub-diagonal element
@@ -617,7 +619,11 @@ class Matrix
              end
           end
 
-          iter = iter + 1  # (Could check iteration count here.)
+          iter = iter + 1
+          total_iter += 1
+          if (total_iter > max_iter)
+            raise Matrix::ErrNotConverged
+          end
 
           # Look for two consecutive small sub-diagonal elements
 
