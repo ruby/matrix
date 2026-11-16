@@ -35,6 +35,16 @@ module ExceptionForMatrix # :nodoc:
     end
   end
 
+  class ErrNotConverged < StandardError
+    def initialize(val = nil)
+      if val
+        super(val)
+      else
+        super("Not Converged")
+      end
+    end
+  end
+
   class ErrOperationNotDefined < StandardError
     def initialize(vals)
       if vals.is_a?(Array)
@@ -1549,6 +1559,8 @@ class Matrix
   #   (v * d * v_inv).round(5) == m # => true
   #
   # This is not supported for Complex matrices
+  #
+  # Raises ErrNotConverged if the QR iteration does not converge.
   def eigensystem
     EigenvalueDecomposition.new(self)
   end

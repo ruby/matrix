@@ -800,6 +800,19 @@ class TestMatrix < Test::Unit::TestCase
     assert_in_epsilon(-4 * vectors[1][0], vectors[1][1])
   end
 
+  def test_eigensystem_not_converging
+    nan = Float::NAN
+    inf = Float::INFINITY
+    [
+      Matrix[[nan, 1.0, 2.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]],
+      Matrix[[1.0, 1.0, 2.0], [3.0, 4.0, inf], [6.0, 7.0, 8.0]],
+      Matrix[[1e308, 1e308, 3.0], [-1e308, 1e308, 1e308], [1e200, 1e308, 1e308]],
+    ].each do |m|
+      assert_raise(Matrix::ErrNotConverged) { m.eigensystem }
+      assert_raise(Matrix::ErrNotConverged) { m ** 0.5 }
+    end
+  end
+
   def test_unitary?
     assert_equal true, @rot.unitary?
     assert_equal true, ((0+1i) * @rot).unitary?
