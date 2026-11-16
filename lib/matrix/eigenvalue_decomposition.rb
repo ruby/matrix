@@ -784,26 +784,26 @@ class Matrix
         # Complex vector
 
         elsif (q < 0)
-          l = n-1
+          l = k-1
 
           # Last vector component imaginary so matrix is triangular
 
-          if (@h[n][n-1].abs > @h[n-1][n].abs)
-            @h[n-1][n-1] = q / @h[n][n-1]
-            @h[n-1][n] = -(@h[n][n] - p) / @h[n][n-1]
+          if (@h[k][k-1].abs > @h[k-1][k].abs)
+            @h[k-1][k-1] = q / @h[k][k-1]
+            @h[k-1][k] = -(@h[k][k] - p) / @h[k][k-1]
           else
-            cdivr, cdivi = cdiv(0.0, -@h[n-1][n], @h[n-1][n-1]-p, q)
-            @h[n-1][n-1] = cdivr
-            @h[n-1][n] = cdivi
+            cdivr, cdivi = cdiv(0.0, -@h[k-1][k], @h[k-1][k-1]-p, q)
+            @h[k-1][k-1] = cdivr
+            @h[k-1][k] = cdivi
           end
-          @h[n][n-1] = 0.0
-          @h[n][n] = 1.0
-          (n-2).downto(0) do |i|
+          @h[k][k-1] = 0.0
+          @h[k][k] = 1.0
+          (k-2).downto(0) do |i|
             ra = 0.0
             sa = 0.0
-            l.upto(n) do |j|
-              ra = ra + @h[i][j] * @h[j][n-1]
-              sa = sa + @h[i][j] * @h[j][n]
+            l.upto(k) do |j|
+              ra = ra + @h[i][j] * @h[j][k-1]
+              sa = sa + @h[i][j] * @h[j][k]
             end
             w = @h[i][i] - p
 
@@ -815,8 +815,8 @@ class Matrix
               l = i
               if (@e[i] == 0)
                 cdivr, cdivi = cdiv(-ra, -sa, w, q)
-                @h[i][n-1] = cdivr
-                @h[i][n] = cdivi
+                @h[i][k-1] = cdivr
+                @h[i][k] = cdivi
               else
 
                 # Solve complex equations
@@ -830,25 +830,25 @@ class Matrix
                   x.abs + y.abs + z.abs)
                 end
                 cdivr, cdivi = cdiv(x*r-z*ra+q*sa, x*s-z*sa-q*ra, vr, vi)
-                @h[i][n-1] = cdivr
-                @h[i][n] = cdivi
+                @h[i][k-1] = cdivr
+                @h[i][k] = cdivi
                 if (x.abs > (z.abs + q.abs))
-                  @h[i+1][n-1] = (-ra - w * @h[i][n-1] + q * @h[i][n]) / x
-                  @h[i+1][n] = (-sa - w * @h[i][n] - q * @h[i][n-1]) / x
+                  @h[i+1][k-1] = (-ra - w * @h[i][k-1] + q * @h[i][k]) / x
+                  @h[i+1][k] = (-sa - w * @h[i][k] - q * @h[i][k-1]) / x
                 else
-                  cdivr, cdivi = cdiv(-r-y*@h[i][n-1], -s-y*@h[i][n], z, q)
-                  @h[i+1][n-1] = cdivr
-                  @h[i+1][n] = cdivi
+                  cdivr, cdivi = cdiv(-r-y*@h[i][k-1], -s-y*@h[i][k], z, q)
+                  @h[i+1][k-1] = cdivr
+                  @h[i+1][k] = cdivi
                 end
               end
 
               # Overflow control
 
-              t = [@h[i][n-1].abs, @h[i][n].abs].max
+              t = [@h[i][k-1].abs, @h[i][k].abs].max
               if ((eps * t) * t > 1)
-                i.upto(n) do |j|
-                  @h[j][n-1] = @h[j][n-1] / t
-                  @h[j][n] = @h[j][n] / t
+                i.upto(k) do |j|
+                  @h[j][k-1] = @h[j][k-1] / t
+                  @h[j][k] = @h[j][k] / t
                 end
               end
             end

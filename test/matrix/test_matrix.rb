@@ -800,6 +800,21 @@ class TestMatrix < Test::Unit::TestCase
     assert_in_epsilon(-4 * vectors[1][0], vectors[1][1])
   end
 
+  def test_eigenvectors_complex
+    [
+      Matrix[[1.0, 2.0, 3.0], [0.0, 0.0, -1.0], [0.0, 1.0, 0.0]],
+      Matrix[[0.0, -1.0, 2.0], [1.0, 0.0, 3.0], [0.0, 0.0, 5.0]],
+      Matrix[[0.0, -1.0, 1.0, 0.0], [1.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, -2.0], [0.0, 0.0, 2.0, 0.0]],
+    ].each do |m|
+      eigen = m.eigensystem
+      eigen.eigenvalues.zip(eigen.eigenvectors) do |value, vector|
+        assert_in_delta(0.0, (m * vector - vector * value).norm, 1.0e-10)
+      end
+      v, d, v_inv = eigen
+      assert_in_delta(0.0, (v * d * v_inv - m).map(&:abs).max, 1.0e-10)
+    end
+  end
+
   def test_unitary?
     assert_equal true, @rot.unitary?
     assert_equal true, ((0+1i) * @rot).unitary?
